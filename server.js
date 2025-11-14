@@ -32,8 +32,8 @@ const transporter = nodemailer.createTransport({
   port: parseInt(process.env.SMTP_PORT),
   secure: process.env.SMTP_SECURE === 'true',
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+  user: process.env.EMAIL_USER,
+  pass: process.env.EMAIL_PASS
   }
 });
 
@@ -140,8 +140,8 @@ app.get('/api/notes', (req, res) => {
   res.json(notes);
 });
 
-app.put('/api/notes/:id', (req, res) => {
-  // edit note by ID
+app.patch('/api/notes/:id', (req, res) => {
+  // patch note by ID (partial update)
   try {
     const noteId = parseInt(req.params.id);
     const { title, content } = req.body;
@@ -152,13 +152,18 @@ app.put('/api/notes/:id', (req, res) => {
       return res.status(404).json({ error: 'Note not found' });
     }
 
-    // Update the note
-    notes[noteIndex] = { ...notes[noteIndex], title, content };
-    // console.log("Updated Notes: ", notes);
+    // Apply partial updates only for provided fields
+    const existing = notes[noteIndex];
+    const updated = {
+      ...existing,
+      title: title !== undefined ? title : existing.title,
+      content: content !== undefined ? content : existing.content,
+    };
+
+    notes[noteIndex] = updated;
 
     res.status(200).json(notes[noteIndex]);
   } catch (error) {
-    // console.error('Error updating note:', error);
     res.status(500).json({ error: 'Failed to update note' });
   }
 });
