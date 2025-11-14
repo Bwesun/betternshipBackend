@@ -106,7 +106,7 @@ app.get('/', (req, res) => {
       res.send('Failed to run Backend!');
     } else {
       console.log('Backend Running!')
-      res.send('Betternship Paperless FMS Backend Running!'); 
+      res.send('Betternship  Backend Running!'); 
 
     }
   });
