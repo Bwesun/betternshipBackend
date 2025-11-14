@@ -118,7 +118,7 @@ const notes = [
   { "id": 2, "title": "Call Sam", "content": "Discuss roadmap" }
 ];
 
-console.log("Curent Notes: ", notes)
+// console.log("Curent Notes: ", notes)
 
 app.post('/api/notes', async (req, res) => {
   try{
@@ -154,11 +154,11 @@ app.put('/api/notes/:id', (req, res) => {
 
     // Update the note
     notes[noteIndex] = { ...notes[noteIndex], title, content };
-    console.log("Updated Notes: ", notes);
+    // console.log("Updated Notes: ", notes);
 
     res.status(200).json(notes[noteIndex]);
   } catch (error) {
-    console.error('Error updating note:', error);
+    // console.error('Error updating note:', error);
     res.status(500).json({ error: 'Failed to update note' });
   }
 });
@@ -175,12 +175,12 @@ app.delete('/api/notes/:id', (req, res) => {
 
     // Remove the note from the array
     const deletedNote = notes.splice(noteIndex, 1);
-    console.log("Deleted Note: ", deletedNote[0]);
-    console.log("Remaining Notes: ", notes);
+    // console.log("Deleted Note: ", deletedNote[0]);
+    // console.log("Remaining Notes: ", notes);
 
     res.status(200).json({ message: 'Note deleted successfully', data: deletedNote[0] });
   } catch (error) {
-    console.error('Error deleting note:', error);
+    // console.error('Error deleting note:', error);
     res.status(500).json({ error: 'Failed to delete note' });
   }
 });
