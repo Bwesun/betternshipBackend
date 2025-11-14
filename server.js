@@ -127,7 +127,7 @@ app.post('/api/notes', async (req, res) => {
 
     // Add the new note to the array of notes
     notes.push({ id: notes.length + 1, title: noteTitle, content: noteContent });
-    console.log("New Notes: ", notes)
+    // console.log("New Notes: ", notes)
     res.status(201).json(notes);
   } catch (error) {
     res.status(500).json({ error: 'Failed to add note' });
